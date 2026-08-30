@@ -1,16 +1,16 @@
 ======================================================
 COE67-XXX Operating Systems - Lab 01 Report
-Name: 
-Student ID: 
+Name: Kittipoom Prachnakorn
+Student ID: 67121475
 ======================================================
 
 1. Hardware Baseline:
-- OS Version:
-- Number of CPU Cores:
-- Total RAM:
+- OS Version: Linux 6.8.0-1052-azure
+- Number of CPU Cores: 2 Cores
+- Total RAM: 7.76 GB
 
 2. Observation (from htop during stress test):
-[Write your answer here]
+During the CPU stress test, the Python script utilized 100% of only ONE CPU core at a time. It did NOT utilize 100% of all available CPU cores due to Python's single-thread execution limits.
 
 3. Analysis:
-[Write your answer here]
+In Machine Learning, training loops with large datasets (such as 500,000 images) require significant memory for loading batch data and heavy computational power for gradient calculations. Knowing OS memory limits prevents Out-Of-Memory (OOM) crashes, and knowing CPU core counts helps optimize data loading pipelines to process data in parallel without overwhelming system resources.
