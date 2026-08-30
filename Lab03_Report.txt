@@ -1,0 +1,19 @@
+======================================================
+COE67-222 Operating Systems - Lab 03 Report
+Name: [ใส่ชื่อของคุณ]
+Student ID: [ใส่รหัสนักศึกษา]
+======================================================
+1. In the `race_condition.py` script, what exactly causes the final weight to be less than the expected value? Explain the role of the OS Scheduler in this error.
+: It is caused by a non-atomic operation (Read-Modify-Write). The OS Scheduler triggers a context switch after Thread 1 reads the shared value. Thread 2 then reads the same stale value and updates it. When Thread 1 resumes, it overwrites Thread 2's update, causing a "Lost Update" and resulting in a value lower than expected.
+
+2. In `producer_consumer.py`:
+- What is the specific job of the `mutex`? : Mutex: Enforces Mutual Exclusion, ensuring only one thread accesses the Critical Section at a time.
+- What is the specific job of the `empty` and `full` semaphores? : Semaphores: Manage resource counting and synchronization.
+- Why can't we just use a Mutex for everything : Why Mutex alone is insufficient: A Mutex is a binary lock with no resource counting or signaling capabilities; it cannot block a thread when the buffer is full or empty. 
+
+3. Deadlock Awareness:
+In the Producer function, we wrote:
+    empty.acquire()
+    mutex.acquire()
+What would happen if we swapped these two lines? (mutex first, then empty). Imagine the buffer is completely full. Explain the potential OS problem.
+: A Deadlock will occur. When the buffer is full, the Producer locks the Mutex first, then blocks at `empty.acquire()` while holding the lock. The Consumer cannot access the buffer to free a slot because it is blocked waiting for the Mutex, leaving both threads permanently stuck.
