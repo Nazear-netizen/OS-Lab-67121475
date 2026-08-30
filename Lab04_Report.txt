@@ -1,0 +1,24 @@
+======================================================
+COE67-222 Operating Systems - Lab 04 Report
+Name: Kittipoom Prachnakorn
+Student ID: 67121475
+======================================================
+
+1. The Deadlock :
+In the `deadlock_simulation.py` script, explain step-by-step how the "Circular Wait" condition occurred between Model A and Model B.
+1. Model A holds GPU 0 and waits for GPU 1.
+2. Model B holds GPU 1 and waits for GPU 0.
+3. A Circular Wait condition occurs because both models wait for resources held by each other without releasing their own, causing the system to freeze.
+
+2. The Solution :
+By changing the code in `deadlock_avoidance.py` so that Model B also requests GPU 0 first, how did this specifically break the "Circular Wait" condition?
+: Enforcing a strict lock ordering (both requesting GPU 0 before GPU 1) eliminates Circular Wait. Model B is forced to wait until Model A completes and releases GPU 0.
+
+3. Starvation vs Deadlock : 
+Based on the results from `starvation_sim.py`
+- How is the final output of the Starvation script fundamentally different from the Deadlock script you ran in Phase 2? : Difference: Deadlock freezes the entire system, whereas Starvation allows execution to continue, but Polite_Model gets extremely few runs (298) compared to Greedy models (23,000+).
+- In your own words, explain how a process scheduler could use a technique called "Aging" to help the `Polite_Model` get a fair share of CPU time. : Aging Technique: The process scheduler gradually increases the priority of Polite_Model as its waiting time grows, ensuring it eventually gets a fair share of resources. 
+
+4. Deadlock Detection & Recovery :
+- How did the `timeout` parameter simulate the Deadlock Detection mechanism of an Operating System? : Timeout role: Sets a maximum waiting time (2.0s). If exceeded, the OS assumes a deadlock has occurred.
+- When the Deadlock was detected, what exact step did Model A take to perform "Recovery" and allow the rest of the system to continue? : Recovery step: Model A releases GPU 0 back to the system, allowing Model B to acquire it and complete execution.
