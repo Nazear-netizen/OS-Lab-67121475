@@ -1,0 +1,20 @@
+======================================================
+COE67-222 Operating Systems - Lab 02 Report
+Name: Kittipoom Prachnakorn
+Student ID: 67121475
+======================================================
+1. Execution Time Comparison:
+- Sequential Time: 8.61 seconds
+- Multithreading Time: 9.12 seconds
+- Multiprocessing Time: 8.32 seconds
+
+2. System Observation (htop):
+When running the Multithreading script, CPU core utilization in htop only stresses a single CPU core at 100% (or rapidly alternates execution between cores one at a time) because Python's Global Interpreter Lock (GIL) restricts execution to one thread at a time. In contrast, running the Multiprocessing script utilizes all available CPU cores (100% on both Core 0 and Core 1 simultaneously) because each process runs in its own memory space with its own dedicated Python interpreter and GIL instance.
+
+3. Analysis (The GIL):
+Multithreading failed to speed up the code because Python's Global Interpreter Lock prevents multiple native threads from executing Python bytecodes concurrently. For heavy CPU-bound tasks, threads are forced to run sequentially, adding overhead for thread context switching. 
+
+Multiprocessing is a better choice for CPU-bound tasks because it spawns separate operating system processes, bypassing the single-GIL limitation entirely and allowing true parallel execution across multiple CPU cores.
+
+Note on Zombie Processes:
+When a child process finishes execution, it becomes a Zombie process or 'Z' state in OS process table if the parent process does not collect its exit status. To prevent zombie processes, the parent process must execute the os.wait() system call to clean up the child's entry in the process table.
